@@ -53,10 +53,12 @@ body {
 .tools__button{
   width: 35px;
   height: 25px;
+  border: none;
+  cursor: pointer;
 }
 
-.tools__button:not(.tools__button:last-of-type){
-  margin-right: 4px;
+.tools__button:hover{
+  background-color: rgb(241, 227, 99);
 }
 
 .textarea{
