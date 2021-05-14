@@ -20,5 +20,21 @@
           
       </div>
   </main>
+  <script type="text/javascript">
+    
+    const textArea = document.querySelector('.textarea');
+    const boldButton = document.querySelector('.bold');
+    const italicButton = document.querySelector('.italic');
+    const ulistButton = document.querySelector('.ulist');
+  
+    function modifyText(modification) {
+        document.execCommand(modification);
+      }
+    
+    boldButton.addEventListener('click', ()=>{modifyText('bold')})
+    italicButton.addEventListener('click', ()=>{modifyText('italic')})
+    ulistButton.addEventListener('click', ()=>{modifyText('insertUnOrderedList')})
+
+      </script>
   </body>
 </html>
