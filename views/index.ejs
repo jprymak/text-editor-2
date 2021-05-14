@@ -5,7 +5,20 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <main class="main">
+      <h1 class="main-heading">TEXT EDITOR</h1>
+      <div class="editor">
+          <div class="tools">
+              <button class="tools__button bold"><b>B</b></button>
+              <button class="tools__button italic"><i>I</i></button>
+              <button class="tools__button ulist">&#8226;</button>
+          </div>
+          <div class="textarea" contenteditable="true"></div>
+          <div class="buttons">
+            <button class="save-button">SAVE</button> <button class="load-button">LOAD</button>
+          </div>
+          
+      </div>
+  </main>
   </body>
 </html>
