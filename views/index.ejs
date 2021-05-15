@@ -31,7 +31,8 @@
     const italicButton = document.querySelector(".italic");
     const ulistButton = document.querySelector(".ulist");
     const saveButton = document.querySelector(".save-button");
-    const loadButton = document.querySelector('.load-button')
+    const loadButton = document.querySelector('.load-button');
+    const toolButtons = document.querySelectorAll('.tools button')
 
     function modifyText(modification) {
       document.execCommand(modification);
@@ -57,16 +58,18 @@
     }
 
     boldButton.addEventListener("click", () => {
-      modifyText("bold");
+      modifyText("bold") && textArea.focus();
     });
     italicButton.addEventListener("click", () => {
-      modifyText("italic");
+      modifyText("italic") && textArea.focus();
     });
     ulistButton.addEventListener("click", () => {
-      modifyText("insertUnOrderedList");
+      modifyText("insertUnOrderedList")  && textArea.focus();
     });
     saveButton.addEventListener("click", saveFile);
     loadButton.addEventListener("click", loadFile);
+
+    toolButtons.forEach(button => button.addEventListener("click", ()=>textArea.focus()));
 
   </script>
 </body>
