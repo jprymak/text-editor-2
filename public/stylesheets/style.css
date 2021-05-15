@@ -89,3 +89,16 @@ body {
   height: 40px;
   box-shadow: 3px 3px 12px 1px #000000;
 }
+
+.save-button:hover,
+.load-button:hover{
+  background-color: var(--color-primary-light);
+  color:white;
+  box-shadow: 0 10px 20px rgba(black, .15);
+  transform: translateY(-2px);
+}
+.save-button:active,
+.load-button:active{
+  box-shadow: 0 5px 10px rgba(black, .15);
+  transform: translateY(0);
+}
