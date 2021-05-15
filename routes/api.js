@@ -17,4 +17,19 @@ router.post('/', function(req, res, next) {
     
   });
 
+  router.get('/', function(req, res, next) {
+    fs.readFile('./public/saved/text.json', 'utf-8', (err,jsonString)=>{
+        if(err){
+          console.log(err)
+        }else{
+          try{
+            const data = JSON.parse(jsonString)
+            res.send(data);
+          } catch{
+            console.log('Error parsing JSON', err)
+          }
+        }
+      })
+  });
+
   module.exports = router;

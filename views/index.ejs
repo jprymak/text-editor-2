@@ -1,58 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <main class="main">
-      <h1 class="main-heading">TEXT EDITOR</h1>
-      <div class="editor">
-        <div class="tools">
-          <button class="tools__button bold"><b>B</b></button>
-          <button class="tools__button italic"><i>I</i></button>
-          <button class="tools__button ulist">&#8226;</button>
-        </div>
-        <div class="textarea" contenteditable="true"></div>
-        <div class="buttons">
-          <button class="save-button">SAVE</button>
-          <button class="load-button">LOAD</button>
-        </div>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <main class="main">
+    <h1 class="main-heading">TEXT EDITOR</h1>
+    <div class="editor">
+      <div class="tools">
+        <button class="tools__button bold"><b>B</b></button>
+        <button class="tools__button italic"><i>I</i></button>
+        <button class="tools__button ulist">&#8226;</button>
       </div>
-    </main>
-    <script type="text/javascript">
-      const textArea = document.querySelector(".textarea");
-      const boldButton = document.querySelector(".bold");
-      const italicButton = document.querySelector(".italic");
-      const ulistButton = document.querySelector(".ulist");
-      const saveButton = document.querySelector(".save-button");
+      <div class="textarea" contenteditable="true"></div>
+      <div class="buttons">
+        <button class="save-button">SAVE</button>
+        <button class="load-button">LOAD</button>
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript">
 
-      function modifyText(modification) {
-        document.execCommand(modification);
-      }
+    const textArea = document.querySelector(".textarea");
+    const boldButton = document.querySelector(".bold");
+    const italicButton = document.querySelector(".italic");
+    const ulistButton = document.querySelector(".ulist");
+    const saveButton = document.querySelector(".save-button");
+    const loadButton = document.querySelector('.load-button')
 
-      function saveFile() {
-        const data = { text: textArea.innerHTML };
-        fetch("http://localhost:3000/api", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-          .then((resp) => resp.text())
-          .then((data) => console.log(data))
-          .catch((err) => console.log(err));
-      }
+    function modifyText(modification) {
+      document.execCommand(modification);
+    }
 
-      boldButton.addEventListener("click", () => {
-        modifyText("bold");
-      });
-      italicButton.addEventListener("click", () => {
-        modifyText("italic");
-      });
-      ulistButton.addEventListener("click", () => {
-        modifyText("insertUnOrderedList");
-      });
-      saveButton.addEventListener("click", saveFile);
-    </script>
-  </body>
+    function saveFile() {
+      const data = { text: textArea.innerHTML };
+      fetch("http://localhost:3000/api", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then((resp) => resp.text())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+    }
+
+    function loadFile() {
+      fetch('http://localhost:3000/api')
+        .then((resp) => resp.json())
+        .then((resp) => textArea.innerHTML = resp.text)
+        .catch(err => console.log(err))
+    }
+
+    boldButton.addEventListener("click", () => {
+      modifyText("bold");
+    });
+    italicButton.addEventListener("click", () => {
+      modifyText("italic");
+    });
+    ulistButton.addEventListener("click", () => {
+      modifyText("insertUnOrderedList");
+    });
+    saveButton.addEventListener("click", saveFile);
+    loadButton.addEventListener("click", loadFile);
+
+  </script>
+</body>
+
 </html>
