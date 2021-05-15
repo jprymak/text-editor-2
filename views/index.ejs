@@ -13,9 +13,6 @@
     <h1 class="main-heading">TEXT EDITOR</h1>
     <div class="editor">
       <div class="tools">
-        <button class="tools__button bold"><b>B</b></button>
-        <button class="tools__button italic"><i>I</i></button>
-        <button class="tools__button ulist">&#8226;</button>
       </div>
       <div class="textarea" contenteditable="true"></div>
       <div class="buttons">
@@ -27,15 +24,38 @@
   <script type="text/javascript">
 
     const textArea = document.querySelector(".textarea");
-    const boldButton = document.querySelector(".bold");
-    const italicButton = document.querySelector(".italic");
-    const ulistButton = document.querySelector(".ulist");
     const saveButton = document.querySelector(".save-button");
     const loadButton = document.querySelector('.load-button');
-    const toolButtons = document.querySelectorAll('.tools button')
+    const tools = document.querySelector('.tools')
+
+    const toolsList =[
+      {
+        icon: '<b>B</b>',
+        mod: 'bold'
+      },
+      {
+        icon: '<i>I</i>',
+        mod: 'italic'
+      },
+
+      {
+        icon: '&#8226',
+        mod: 'insertUnOrderedList'
+      }
+    ]
 
     function modifyText(modification) {
       document.execCommand(modification);
+    }
+
+    const onInit = () =>{
+      for (let tool of toolsList){
+        const button = document.createElement('button');
+        button.classList.add('tools__button');
+        button.innerHTML = tool.icon;
+        button.addEventListener('click', ()=>{modifyText(tool.mod), textArea.focus()})
+        tools.appendChild(button)
+      }
     }
 
     function saveFile() {
@@ -57,19 +77,10 @@
         .catch(err => console.log(err))
     }
 
-    boldButton.addEventListener("click", () => {
-      modifyText("bold") && textArea.focus();
-    });
-    italicButton.addEventListener("click", () => {
-      modifyText("italic") && textArea.focus();
-    });
-    ulistButton.addEventListener("click", () => {
-      modifyText("insertUnOrderedList")  && textArea.focus();
-    });
+    onInit()
+
     saveButton.addEventListener("click", saveFile);
     loadButton.addEventListener("click", loadFile);
-
-    toolButtons.forEach(button => button.addEventListener("click", ()=>textArea.focus()));
 
   </script>
 </body>
